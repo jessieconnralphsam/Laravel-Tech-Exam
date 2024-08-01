@@ -60,3 +60,21 @@ Authorization: Bearer {token}
 Sample [Bearer token is created when login]:
 Authorization: Bearer QwWXP9v60dzpnSlOuth7cOoODUGKUas4mBzkZF5G04590b49
 
+## User Management
+
+Blog Posts:POST
+http://127.0.0.1:8000 /api/blogs
+
+Header:
+
+Authorization: Bearer {token}
+Content-Type: application/json
+
+body: 
+
+{
+    "title": "My 4th Blog Post",
+    "content": "This is the content of my 4th blog post."
+}
+
+***
