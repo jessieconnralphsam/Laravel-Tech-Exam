@@ -13,8 +13,28 @@ http://127.0.0.1:8000/api/register
 
 Body:
 {
-    "name": "Diannesam",
-    "email": "dianne@example.com",
+    "name": "Jessiesam",
+    "email": "Jessie@example.com",
+    "password": "12345678"
+}
+
+Scripts Pre-request:
+
+pm.sendRequest({
+    url:"http://127.0.0.1:8000/sanctum/csrf-cookie",
+    method: "GET"
+},function (error, response, {cookies}){
+    if(!error){
+        pm.collectionVariables.set('xsrf-cookie', cookies.get('XSRF-TOKEN'))
+    }
+})
+
+Login Endpoint:
+http://127.0.0.1:8000/api/login
+
+Body:
+{
+    "email": "jessie@example.com",
     "password": "12345678"
 }
 
