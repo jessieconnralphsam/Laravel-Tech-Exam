@@ -8,7 +8,7 @@ For documentation, visit the following link:
 2. Run: php artisan migrate
 ## User Management
 
-Register Endpoint:
+Register Endpoint: POST
 http://127.0.0.1:8000/api/register
 
 Body:
@@ -29,7 +29,7 @@ pm.sendRequest({
     }
 })
 ***
-Login Endpoint:
+Login Endpoint: POST
 http://127.0.0.1:8000/api/login
 
 Body:
@@ -48,3 +48,15 @@ pm.sendRequest({
         pm.collectionVariables.set('xsrf-cookie', cookies.get('XSRF-TOKEN'))
     }
 })
+
+***
+Login Endpoint: POST
+http://127.0.0.1:8000/api/logout
+
+Header:
+
+Authorization: Bearer {token}
+
+Sample [Bearer token is created when login]:
+Authorization: Bearer QwWXP9v60dzpnSlOuth7cOoODUGKUas4mBzkZF5G04590b49
+
