@@ -126,3 +126,11 @@ none
 
 Sample:
 ![Alt text](public/email.png)
+
+***
+
+## Store audit logs in the database, capturing details like the user who made the change, timestamp, and type of operation (create, update, delete).
+
+- Base on the ERD I make trigger that everytime action performed in the blog_post it will log on the audit table.
+
+![Alt text](public/trigger.png)
