@@ -121,3 +121,8 @@ body:
 none
 
 ***
+## Implement a mechanism to send email notifications whenever a new blog post is created.
+- Everytime the it will send email to my mail trap that is configure in .env file <br>
+
+Sample:
+![Alt text](public/Screenshot 2024-08-02 094948.png)
