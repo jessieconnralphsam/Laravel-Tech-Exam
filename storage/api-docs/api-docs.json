@@ -261,6 +261,98 @@
                     }
                 }
             }
+        },
+        "/api/blogs/{id}": {
+            "put": {
+                "tags": [
+                    "Blogs"
+                ],
+                "summary": "Update an existing blog",
+                "description": "Update the blog identified by the provided ID. Only the owner of the blog can update it.",
+                "operationId": "6a99affa8f7d94cd429d58eb73cf0e88",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID of the blog to update",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "title": {
+                                        "type": "string",
+                                        "example": "Updated Blog Title"
+                                    },
+                                    "content": {
+                                        "type": "string",
+                                        "example": "Updated content for the blog."
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Blog updated successfully"
+                    },
+                    "403": {
+                        "description": "Unauthorized"
+                    },
+                    "404": {
+                        "description": "Blog not found"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            },
+            "delete": {
+                "tags": [
+                    "Blogs"
+                ],
+                "summary": "Delete a blog",
+                "description": "Delete the blog identified by the provided ID. Only the owner of the blog can delete it.",
+                "operationId": "9fb0bb3fc65e987a03d2b5ecdda4489d",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID of the blog to delete",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "Blog deleted successfully"
+                    },
+                    "403": {
+                        "description": "Unauthorized"
+                    },
+                    "404": {
+                        "description": "Blog not found"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
         }
     },
     "tags": [

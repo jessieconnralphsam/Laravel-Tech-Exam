@@ -116,4 +116,104 @@ class BlogController extends Controller
         // Return the blog posts as a JSON response
         return response()->json($blogs);
     }
+    /**
+     * @OA\Put(
+     *     path="/api/blogs/{id}",
+     *     summary="Update an existing blog",
+     *     description="Update the blog identified by the provided ID. Only the owner of the blog can update it.",
+     *     tags={"Blogs"},
+     *     @OA\Parameter(
+     *         name="id",
+     *         in="path",
+     *         description="ID of the blog to update",
+     *         required=true,
+     *         @OA\Schema(type="integer")
+     *     ),
+     *     @OA\RequestBody(
+     *         required=true,
+     *         @OA\JsonContent(
+     *             @OA\Property(property="title", type="string", example="Updated Blog Title"),
+     *             @OA\Property(property="content", type="string", example="Updated content for the blog.")
+     *         )
+     *     ),
+     *     @OA\Response(
+     *         response=200,
+     *         description="Blog updated successfully",
+     *     ),
+     *     @OA\Response(
+     *         response=403,
+     *         description="Unauthorized"
+     *     ),
+     *     @OA\Response(
+     *         response=404,
+     *         description="Blog not found"
+     *     ),
+     *     security={{"bearerAuth": {}}}
+     * )
+     */
+    public function update(Request $request, $id)
+    {
+        // Find the blog by ID
+        $blog = Blog::findOrFail($id);
+
+        // Check if the authenticated user is the owner of the blog
+        if ($request->user()->id !== $blog->user_id) {
+            return response()->json(['error' => 'Unauthorized'], 403);
+        }
+
+        // Validate the request
+        $validated = $request->validate([
+            'title' => 'sometimes|required|string|max:255',
+            'content' => 'sometimes|required|string',
+        ]);
+
+        // Update the blog
+        $blog->update($validated);
+
+        return response()->json($blog, 200);
+    }
+
+
+    /**
+     * @OA\Delete(
+     *     path="/api/blogs/{id}",
+     *     summary="Delete a blog",
+     *     description="Delete the blog identified by the provided ID. Only the owner of the blog can delete it.",
+     *     tags={"Blogs"},
+     *     @OA\Parameter(
+     *         name="id",
+     *         in="path",
+     *         description="ID of the blog to delete",
+     *         required=true,
+     *         @OA\Schema(type="integer")
+     *     ),
+     *     @OA\Response(
+     *         response=204,
+     *         description="Blog deleted successfully"
+     *     ),
+     *     @OA\Response(
+     *         response=403,
+     *         description="Unauthorized"
+     *     ),
+     *     @OA\Response(
+     *         response=404,
+     *         description="Blog not found"
+     *     ),
+     *     security={{"bearerAuth": {}}}
+     * )
+     */
+    public function destroy(Request $request, $id)
+    {
+        // Find the blog by ID
+        $blog = Blog::findOrFail($id);
+
+        // Check if authenticated user is the owner of the blog
+        if ($request->user()->id !== $blog->user_id) {
+            return response()->json(['error' => 'Unauthorized'], 403);
+        }
+        // Delete ang blog
+        $blog->delete();
+
+        return response()->json(null, 204);
+    }
 }

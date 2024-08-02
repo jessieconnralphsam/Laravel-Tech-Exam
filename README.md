@@ -66,8 +66,8 @@ Authorization: Bearer QwWXP9v60dzpnSlOuth7cOoODUGKUas4mBzkZF5G04590b49
 
 ## User Management
 
-Blog Posts:POST
-http://127.0.0.1:8000 /api/blogs
+create Blog endpoint:POST
+http://127.0.0.1:8000/api/blogs
 
 Header:
 
@@ -82,10 +82,42 @@ body:
 }
 
 ***
-Blog Posts:GET
-http://127.0.0.1:8000 /api/blogs
+show blog of authenticated user endppoint:GET
+http://127.0.0.1:8000/api/blogs
 
 Header:
 body: none
 
 Authorization: Bearer {token}
+
+***
+
+update Blog endpoint:PUT
+http://127.0.0.1:8000/api/blogs/{blog id}
+
+Header:
+
+Authorization: Bearer {token}
+Content-Type: application/json
+
+body: 
+
+{
+    "title": "My updated Blog Post",
+    "content": "This is the content of my updated blog post."
+}
+
+***
+
+update Blog endpoint:DELETE
+http://127.0.0.1:8000/api/blogs/{blog id}
+
+Header:
+
+Authorization: Bearer {token}
+Content-Type: application/json
+
+body: 
+none
+
+***
