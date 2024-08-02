@@ -2,7 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\Notification;
+use App\Notifications\BlogPosted;
 use App\Models\Blog;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 
@@ -69,7 +72,11 @@ class BlogController extends Controller
                 'title' => $validated['title'],
                 'content' => $validated['content'],
             ]);
-    
+
+            // Send the notification
+            Notification::route('mail', 'technicalexam08@gmail.com')
+            ->notify(new BlogPosted($blog));
+
             return response()->json($blog, 201);
         } catch (\Illuminate\Validation\ValidationException $e) {
             // Return a 401 response with yung validation error
