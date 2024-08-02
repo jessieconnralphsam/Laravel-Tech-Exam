@@ -10,9 +10,37 @@ class BlogController extends Controller
 {
     use AuthorizesRequests;
 
-    // Remove the constructor middleware call
-    // Use route middleware for authentication
-
+    /**
+     * @OA\Post(
+     *     path="/api/blogs",
+     *     tags={"Blog"},
+     *     summary="Create a new blog post",
+     *     @OA\RequestBody(
+     *         required=true,
+     *         @OA\JsonContent(
+     *             @OA\Property(property="title", type="string", example="My First Blog"),
+     *             @OA\Property(property="content", type="string", example="This is the content of my first blog.")
+     *         )
+     *     ),
+     *     @OA\Response(
+     *         response=201,
+     *         description="Blog created successfully",
+     *         @OA\JsonContent(
+     *             @OA\Property(property="id", type="integer", example=1),
+     *             @OA\Property(property="user_id", type="integer", example=1),
+     *             @OA\Property(property="title", type="string", example="My First Blog"),
+     *             @OA\Property(property="content", type="string", example="This is the content of my first blog."),
+     *             @OA\Property(property="created_at", type="string", format="date-time", example="2021-01-01T00:00:00Z"),
+     *             @OA\Property(property="updated_at", type="string", format="date-time", example="2021-01-01T00:00:00Z")
+     *         )
+     *     ),
+     *     @OA\Response(
+     *         response=400,
+     *         description="Invalid input",
+     *     )
+     * )
+     */
+    
     public function store(Request $request)
     {
         $validated = $request->validate([
@@ -28,38 +56,4 @@ class BlogController extends Controller
 
         return response()->json($blog, 201);
     }
-
-    // public function index()
-    // {
-    //     $blogs = Blog::with('user')->get();
-    //     return response()->json($blogs);
-    // }
-
-    // public function show(Blog $blog)
-    // {
-    //     return response()->json($blog->load('user'));
-    // }
-
-    // public function update(Request $request, Blog $blog)
-    // {
-    //     $this->authorize('update', $blog);
-
-    //     $validated = $request->validate([
-    //         'title' => 'sometimes|string|max:255',
-    //         'content' => 'sometimes|string',
-    //     ]);
-
-    //     $blog->update($validated);
-
-    //     return response()->json($blog);
-    // }
-
-    // public function destroy(Blog $blog)
-    // {
-    //     $this->authorize('delete', $blog);
-
-    //     $blog->delete();
-
-    //     return response()->json(null, 204);
-    // }
 }
