@@ -3,6 +3,10 @@ Simulates building a backend API for a simple blog application using Laravel. It
 ## Documentation
 For documentation, visit the following link:
 [Documentation](https://drive.google.com/file/d/1NzTjlEDGGGqcVHTtYK-sE4n1dNDeRXhv/view?usp=sharing)
+***
+Swaggger controller documentation:
+http://127.0.0.1:8000/api/documentation
+
 ## Setup Database
 1. Create database in mysql name: technical_exam
 2. Run: php artisan migrate
