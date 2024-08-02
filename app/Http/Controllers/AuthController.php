@@ -132,4 +132,29 @@ class AuthController extends Controller
 
         return response()->json(['message' => 'Logged out successfully'], 200);
     }
+
+    public function update(Request $request)
+    {
+        $user = $request->user(); // Get the authenticated user
+
+        // Validate the incoming request
+        $data = $request->validate([
+            'email' => ['nullable', 'email', 'unique:users,email,' . $user->id],
+            'password' => ['nullable', 'min:8'],
+        ]);
+
+        // Update the user's email if provided
+        if (isset($data['email'])) {
+            $user->email = $data['email'];
+        }
+
+        // Update the user's password if provided
+        if (isset($data['password'])) {
+            $user->password = Hash::make($data['password']);
+        }
+
+        $user->save();
+
+        return response()->json(['message' => 'User updated successfully']);
+    }
 }

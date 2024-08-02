@@ -64,6 +64,24 @@ Authorization: Bearer {token}
 Sample [Bearer token is created when login]:
 Authorization: Bearer QwWXP9v60dzpnSlOuth7cOoODUGKUas4mBzkZF5G04590b49
 
+***
+update email & password Endpoint: PUT
+http://127.0.0.1:8000/api/user/update
+
+Header:
+
+Authorization: Bearer {token}
+
+Sample [Bearer token is created when login]:
+Authorization: Bearer QwWXP9v60dzpnSlOuth7cOoODUGKUas4mBzkZF5G04590b49
+
+body:
+
+{
+    "email": "newemail@example.com",
+    "password": "12345689"
+}
+
 ## User Management
 
 create Blog endpoint:POST
