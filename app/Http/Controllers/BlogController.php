@@ -40,7 +40,7 @@ class BlogController extends Controller
      *     )
      * )
      */
-    
+
     public function store(Request $request)
     {
         $validated = $request->validate([
@@ -55,5 +55,65 @@ class BlogController extends Controller
         ]);
 
         return response()->json($blog, 201);
+    }
+
+    /**
+     * @OA\Get(
+     *     path="/api/blogs",
+     *     summary="List all blogs",
+     *     description="Retrieve a list of all blog posts",
+     *     operationId="getBlogs",
+     *     tags={"Blogs"},
+     *     security={{"bearerAuth":{}}},
+     *     @OA\Response(
+     *         response=200,
+     *         description="Successful operation",
+     *         @OA\JsonContent(
+     *             type="array",
+     *             @OA\Items(
+     *                 type="object",
+     *                 @OA\Property(
+     *                     property="id",
+     *                     type="integer",
+     *                     description="The blog ID"
+     *                 ),
+     *                 @OA\Property(
+     *                     property="title",
+     *                     type="string",
+     *                     description="The blog title"
+     *                 ),
+     *                 @OA\Property(
+     *                     property="content",
+     *                     type="string",
+     *                     description="The blog content"
+     *                 ),
+     *                 @OA\Property(
+     *                     property="created_at",
+     *                     type="string",
+     *                     format="date-time",
+     *                     description="The creation date"
+     *                 ),
+     *                 @OA\Property(
+     *                     property="updated_at",
+     *                     type="string",
+     *                     format="date-time",
+     *                     description="The last update date"
+     *                 )
+     *             )
+     *         )
+     *     ),
+     *     @OA\Response(
+     *         response=401,
+     *         description="Unauthorized"
+     *     )
+     * )
+     */
+
+    public function index()
+    {
+        // Retrieve lahat ng blog
+        $blogs = Blog::all();
+        // Return the blog posts as a JSON response
+        return response()->json($blogs);
     }
 }

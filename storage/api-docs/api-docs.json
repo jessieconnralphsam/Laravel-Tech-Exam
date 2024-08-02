@@ -136,6 +136,61 @@
             }
         },
         "/api/blogs": {
+            "get": {
+                "tags": [
+                    "Blogs"
+                ],
+                "summary": "List all blogs",
+                "description": "Retrieve a list of all blog posts",
+                "operationId": "getBlogs",
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "properties": {
+                                            "id": {
+                                                "description": "The blog ID",
+                                                "type": "integer"
+                                            },
+                                            "title": {
+                                                "description": "The blog title",
+                                                "type": "string"
+                                            },
+                                            "content": {
+                                                "description": "The blog content",
+                                                "type": "string"
+                                            },
+                                            "created_at": {
+                                                "description": "The creation date",
+                                                "type": "string",
+                                                "format": "date-time"
+                                            },
+                                            "updated_at": {
+                                                "description": "The last update date",
+                                                "type": "string",
+                                                "format": "date-time"
+                                            }
+                                        },
+                                        "type": "object"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            },
             "post": {
                 "tags": [
                     "Blog"
@@ -216,6 +271,10 @@
         {
             "name": "Blog",
             "description": "Blog"
+        },
+        {
+            "name": "Blogs",
+            "description": "Blogs"
         }
     ]
 }

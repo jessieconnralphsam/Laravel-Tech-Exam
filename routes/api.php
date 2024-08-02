@@ -11,6 +11,7 @@ Route::post('/logout', [AuthController::class, 'logout'])->middleware('auth:sanc
 
 Route::middleware('auth:sanctum')->group(function () {
     Route::post('/blogs', [BlogController::class, 'store']);
+    Route::get('/blogs', [BlogController::class, 'index']);
 });
 
 // Route::get('/user', function (Request $request) {
