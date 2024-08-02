@@ -125,4 +125,4 @@ none
 - Everytime the it will send email to my mail trap that is configure in .env file <br>
 
 Sample:
-![Alt text](public/Screenshot 2024-08-02 094948.png)
+![Alt text](public/email.png)
