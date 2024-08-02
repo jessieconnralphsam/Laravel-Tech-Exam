@@ -41,22 +41,45 @@ class BlogController extends Controller
      * )
      */
 
+    // public function store(Request $request)
+    // {
+    //     $validated = $request->validate([
+    //         'title' => 'required|string|max:255',
+    //         'content' => 'required|string',
+    //     ]);
+
+    //     $blog = Blog::create([
+    //         'user_id' => $request->user()->id,
+    //         'title' => $validated['title'],
+    //         'content' => $validated['content'],
+    //     ]);
+
+    //     return response()->json($blog, 201);
+    // }
     public function store(Request $request)
     {
-        $validated = $request->validate([
-            'title' => 'required|string|max:255',
-            'content' => 'required|string',
-        ]);
-
-        $blog = Blog::create([
-            'user_id' => $request->user()->id,
-            'title' => $validated['title'],
-            'content' => $validated['content'],
-        ]);
-
-        return response()->json($blog, 201);
+        try {
+            $validated = $request->validate([
+                'title' => 'required|string|max:255',
+                'content' => 'required|string',
+            ]);
+    
+            $blog = Blog::create([
+                'user_id' => $request->user()->id,
+                'title' => $validated['title'],
+                'content' => $validated['content'],
+            ]);
+    
+            return response()->json($blog, 201);
+        } catch (\Illuminate\Validation\ValidationException $e) {
+            // Return a 401 response with yung validation error
+            return response()->json([
+                'error' => 'Unauthorized',
+                'message' => $e->errors()
+            ], 401);
+        }
     }
-
+    
     /**
      * @OA\Get(
      *     path="/api/blogs",
