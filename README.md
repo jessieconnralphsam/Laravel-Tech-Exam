@@ -1,6 +1,7 @@
 # Laravel-Tech-Exam
 Simulates building a backend API for a simple blog application using Laravel. It will assess your understanding of Laravel fundamentals, user authentication with your choice, and building RESTful APIs.
 ## Documentation
+[Technical Exam](https://docs.google.com/document/d/1IT-XqPKL_KZgJN2xiOAJnKn_43I8h3Rj/edit?usp=drive_link&ouid=106242351847779701342&rtpof=true&sd=true)
 For documentation, visit the following link:
 [Documentation](https://drive.google.com/file/d/1NzTjlEDGGGqcVHTtYK-sE4n1dNDeRXhv/view?usp=sharing)
 ***
