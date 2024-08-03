@@ -152,6 +152,6 @@ Sample:
 
 ## Store audit logs in the database, capturing details like the user who made the change, timestamp, and type of operation (create, update, delete).
 
-- Base on the ERD I make trigger that everytime action performed in the blog_post it will log on the audit table.
+- Base on the ERD I make trigger in the database (in the migration file [2024_08_02_021815_create_blog_post_trigger.php] ) that everytime action performed in the blog_post it will log on the audit table.
 
 ![Alt text](public/trigger.png)
