@@ -85,7 +85,7 @@ body:
     "password": "12345689"
 }
 
-## User Management
+## Blog Post CRUD
 
 create Blog endpoint:POST
 http://127.0.0.1:8000/api/blogs
