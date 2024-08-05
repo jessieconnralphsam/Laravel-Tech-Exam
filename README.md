@@ -20,9 +20,10 @@ http://127.0.0.1:8000/api/register
 
 Body:
 {
-    "name": "Jessiesam",
-    "email": "Jessie@example.com",
-    "password": "12345678"
+    "name": "jessie conn sam",
+    "email": "jessie.official@gmail.com",
+    "password": "Gv7#pR9&zLw!xQ2@fT4$kY1",
+    "password_confirmation": "Gv7#pR9&zLw!xQ2@fT4$kY1"
 }
 
 Scripts Pre-request:

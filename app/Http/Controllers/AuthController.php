@@ -4,8 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Hash; // Add this line
+use Illuminate\Support\Facades\Hash; 
 use Illuminate\Validation\ValidationException;
+use Illuminate\Validation\Rules\Password;
 
 /**
  * @OA\Info(title="Auth API", version="1.0")
@@ -40,25 +41,89 @@ class AuthController extends Controller
      *     )
      * )
      */
+    //old version
+    // public function register(Request $request)
+    // {
+    //     $data = $request->validate([
+    //         'name' => ['required', 'string'],
+    //         'email' => ['required', 'email', 'unique:users'],
+    //         'password' => [
+    //             'required',
+    //             //password policy
+    //              Password::min(8)
+    //                 ->letters()
+    //                 ->mixedCase()
+    //                 ->numbers()
+    //                 ->symbols()
+    //                 ->uncompromised(),
+    //         ],
+    //     ]);
+
+    //     // Hash the password before saving
+    //     $data['password'] = Hash::make($data['password']);
+
+    //     $user = User::create($data);
+
+    //     $token = $user->createToken('auth_token')->plainTextToken;
+
+    //     return [
+    //         'message' => 'User registered successfully',
+    //         'user' => $user,
+    //         'token' => $token
+    //     ];
+    // }
+
     public function register(Request $request)
     {
-        $data = $request->validate([
-            'name' => ['required', 'string'],
-            'email' => ['required', 'email', 'unique:users'],
-            'password' => ['required', 'min:8'],
-        ]);
+        try {
+            $data = $request->validate([
+                'name' => ['required', 'string', 'max:255'],
+                'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+                'password' => [
+                    'required',
+                    'string',
+                    //password policy
+                    Password::min(8)
+                        ->letters()
+                        ->mixedCase()
+                        ->numbers()
+                        ->symbols()
+                        ->uncompromised(),
+                    'confirmed',  // Requires password_confirmation field
+                ],
+            ], [
+                'name.required' => 'Name is required.',
+                'email.required' => 'Email is required.',
+                'email.unique' => 'This email is already registered.',
+                'password.required' => 'Password is required.',
+                'password.confirmed' => 'Password confirmation does not match.',
+                'password' => 'Password must be at least 8 characters long and include uppercase and lowercase letters, numbers, and symbols.',
+            ]);
 
-        // Hash the password before saving
-        $data['password'] = Hash::make($data['password']);
+            // Hash the password before saving
+            $data['password'] = Hash::make($data['password']);
 
-        $user = User::create($data);
+            $user = User::create($data);
 
-        $token = $user->createToken('auth_token')->plainTextToken;
+            $token = $user->createToken('auth_token')->plainTextToken;
 
-        return [
-            'user' => $user,
-            'token' => $token
-        ];
+            return response()->json([
+                'message' => 'User registered successfully',
+                'user' => $user,
+                'token' => $token
+            ], 201);
+
+        } catch (ValidationException $e) {
+            return response()->json([
+                'message' => 'Validation failed',
+                'errors' => $e->errors(),
+            ], 422);
+        } catch (\Exception $e) {
+            return response()->json([
+                'message' => 'An error occurred during registration',
+                'error' => $e->getMessage(),
+            ], 500);
+        }
     }
 
      /**
@@ -105,6 +170,7 @@ class AuthController extends Controller
         $token = $user->createToken('auth_token')->plainTextToken;
 
         return [
+            'message' => 'Login successfully',
             'user' => $user,
             'token' => $token
         ];
