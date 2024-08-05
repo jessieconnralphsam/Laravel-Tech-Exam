@@ -10,6 +10,8 @@ For documentation, visit the following link:
 Swaggger controller documentation:
 http://127.0.0.1:8000/api/documentation
 
+Run: php artisan l5-swagger:generate
+
 ## Setup Database
 1. Create database in mysql name: technical_exam
 2. Run: php artisan migrate
