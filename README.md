@@ -60,7 +60,7 @@ pm.sendRequest({
 })
 
 ***
-Login Endpoint: POST
+Logout Endpoint: POST
 http://127.0.0.1:8000/api/logout
 
 Header:
